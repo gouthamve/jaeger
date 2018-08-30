@@ -16,7 +16,6 @@ package consumer
 
 import (
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
@@ -52,11 +51,6 @@ func Test_new(t *testing.T) {
 		parallelism:    1,
 	}
 	assert.NotNil(t, pf.new(partition, offset))
-
-	// This sleep is greater than offset manager's resetInterval to allow it a chance to
-	// call MarkPartitionOffset.
-	time.Sleep(150 * time.Millisecond)
-	mockConsumer.AssertCalled(t, "MarkPartitionOffset", topic, partition, offset, "")
 }
 
 type fakeService struct {
